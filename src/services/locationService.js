@@ -1,11 +1,14 @@
 import axios from "axios";
-import { config } from "../config/env.js";
 import logger from "../utils/logger.js";
 import { locationSchema, validateData } from "../utils/validation.js";
 
+// New configuration of environment variables
+import { enviromentVariables } from '../config/env.js';
+const { POKEAPI_BASE_URL } = enviromentVariables;
+
 export async function migrateLocations() {
   try {
-    const response = await axios.get(`${config.pokeApiUrl}/location?limit=100`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/location?limit=100`);
     const locations = response.data.results;
 
     logger.info(`Fetched ${locations.length} Locations from API`);

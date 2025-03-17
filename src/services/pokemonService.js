@@ -1,11 +1,13 @@
 import axios from "axios";
-import { config } from "../config/env.js";
+import { enviromentVariables } from "../config/env.js";
 import logger from "../utils/logger.js";
 import { pokemonSchema, validateData } from "../utils/validation.js";
 
+const { POKEAPI_BASE_URL } = enviromentVariables
+
 export async function migratePokemons() {
   try {
-    const response = await axios.get(`${config.pokeApiUrl}/pokemon?limit=100`);
+    const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon?limit=100`);
     const pokemons = response.data.results;
 
     logger.info(`Fetched ${pokemons.length} Pokemon from API`);
