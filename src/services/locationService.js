@@ -39,10 +39,9 @@ export async function migrateLocations() {
     const validLocations = formattedLocations.filter((l) => l !== null);
     logger.info(`Validated ${validLocations.length} Locations successfully`);
     
-    /*let x = JSON.stringify(validLocations);
-    console.log(`Locations: ${x}`);*/
     
     // 🔽 HubSpot Migration 🔽
+    await migrateToHubspot("location", formattedLocations);
 
   } catch (error) {
     logger.error("Error fetching Locations:", error);

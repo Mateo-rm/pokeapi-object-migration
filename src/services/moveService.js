@@ -35,11 +35,9 @@ export async function migrateMoves() {
 
     const validMoves = formattedMoves.filter((m) => m !== null);
     logger.info(`Validated ${validMoves.length} Moves successfully`);
-
-    /*let y = JSON.stringify(validMoves);
-    console.log(`Moves: ${y}`);*/
     
     // 🔽 HubSpot Migration 🔽
+    await migrateToHubspot("move", formattedMoves);
 
   } catch (error) {
     logger.error("Error fetching Moves:", error);

@@ -2,6 +2,7 @@ import axios from "axios";
 import { enviromentVariables } from "../config/env.js";
 import logger from "../utils/logger.js";
 import { pokemonSchema, validateData } from "../utils/validation.js";
+import { migrateToHubspot } from "./hubspotService.js";
 
 const { POKEAPI_BASE_URL } = enviromentVariables
 
@@ -46,10 +47,9 @@ export async function migratePokemons() {
     const validPokemons = formattedPokemons.filter((p) => p !== null);
     logger.info(`Validated ${validPokemons.length} Pokemon successfully`);
 
-    /*let z = JSON.stringify(validPokemons);
-    console.log(`Pokemons: ${z}`);*/
     
     // 🔽 HubSpot Migration 🔽
+    await migrateToHubspot("pokemon", validPokemons);
 
   } catch (error) {
     logger.error("Error fetching Pokemon:", error);
